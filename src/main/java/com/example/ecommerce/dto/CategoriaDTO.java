@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class CategoriaDTO {
+	private Long id;
 	private String titulo;
     private List<ProdutoDTO> produtos;
 }
