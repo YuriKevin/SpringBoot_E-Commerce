@@ -47,7 +47,7 @@ public class ProdutoService {
 	
 	@Transactional
 	public List<Produto> listarPorTitulo(String titulo, int pagina){
-		return produtoRepository.findByTitulo(titulo, PageRequest.of(pagina, 18));
+		return produtoRepository.findByTituloOrderByQuantidadeVendidaDesc(titulo, PageRequest.of(pagina, 18));
 	}
 	
 	@Transactional
@@ -60,7 +60,7 @@ public class ProdutoService {
 	
 	@Transactional
 	public List<Produto> listarPorCategoria(String categoria, int pagina){
-		return produtoRepository.findByCategoria(categoria, PageRequest.of(pagina, 18));		
+		return produtoRepository.findByCategoriaOrderByQuantidadeVendidaDesc(categoria, PageRequest.of(pagina, 18));		
 	}
 	
 	@Transactional
@@ -73,7 +73,7 @@ public class ProdutoService {
 	
 	@Transactional
 	public List<Produto> listarProdutosDeUmaloja(String loja, int pagina){
-		return produtoRepository.findByNomeLoja(loja, PageRequest.of(pagina, 18));		
+		return produtoRepository.findByNomeLojaOrderByQuantidadeVendidaDesc(loja, PageRequest.of(pagina, 18));		
 	}
 	
 	@Transactional

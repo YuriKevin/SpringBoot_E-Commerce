@@ -13,9 +13,9 @@ import jakarta.transaction.Transactional;
 public interface ProdutoRepository extends JpaRepository<Produto, Long>{
 	@Transactional
     void deleteByLoja(Loja loja);
-	List<Produto> findByNomeLoja(String loja, Pageable page);
-	List<Produto> findByTitulo(String titulo, Pageable page);
-	List<Produto> findByCategoria(String categoria, Pageable page);
+	List<Produto> findByNomeLojaOrderByQuantidadeVendidaDesc(String loja, Pageable page);
+	List<Produto> findByTituloOrderByQuantidadeVendidaDesc(String titulo, Pageable page);
+	List<Produto> findByCategoriaOrderByQuantidadeVendidaDesc(String categoria, Pageable page);
 	
 	@Query("SELECT p FROM Produto p ORDER BY p.id DESC")
     List<Produto> findLast30ByOrderByIdDesc();
