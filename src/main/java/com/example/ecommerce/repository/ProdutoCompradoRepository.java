@@ -12,9 +12,9 @@ import com.example.ecommerce.model.Usuario;
 
 public interface ProdutoCompradoRepository extends JpaRepository<ProdutoComprado, Long>{
 	
-	@Query("SELECT p FROM ProdutoComprado p WHERE p.loja = :loja")
+	@Query("SELECT p FROM ProdutoComprado p WHERE p.loja = :loja ORDER BY p.id DESC")
     List<ProdutoComprado> findByLoja(@Param("loja") Loja loja, Pageable page);
 	
-	 @Query("SELECT p FROM ProdutoComprado p WHERE p.usuario = :usuario")
+	 @Query("SELECT p FROM ProdutoComprado p WHERE p.usuario = :usuario ORDER BY p.id DESC")
 	 List<ProdutoComprado> findByUsuario(@Param("usuario") Usuario usuario, Pageable page);
 }
