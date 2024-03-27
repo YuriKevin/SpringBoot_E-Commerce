@@ -44,8 +44,8 @@ public class LojaService {
 	}
 	
 	@Transactional
-	public List<LojaDTO> encontrarPorNome(String nome, int pagina, int itens){
-		List<Loja> lojasSalvas = lojaRepository.findByNome(nome, PageRequest.of(pagina, itens));
+	public List<LojaDTO> encontrarPorNome(String nome, int pagina){
+		List<Loja> lojasSalvas = lojaRepository.findByNome(nome, PageRequest.of(pagina, 18));
 		verificarListaVaziaExcecao(lojasSalvas);
 		List<LojaDTO> lojasDTO = transformarEmDTO(lojasSalvas);
 		return lojasDTO;

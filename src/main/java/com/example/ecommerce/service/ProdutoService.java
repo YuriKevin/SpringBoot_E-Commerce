@@ -46,39 +46,39 @@ public class ProdutoService {
 	}
 	
 	@Transactional
-	public List<Produto> listarPorTitulo(String titulo, int pagina, int itens){
-		return produtoRepository.findByTitulo(titulo, PageRequest.of(pagina, itens));
+	public List<Produto> listarPorTitulo(String titulo, int pagina){
+		return produtoRepository.findByTitulo(titulo, PageRequest.of(pagina, 18));
 	}
 	
 	@Transactional
-	public List<ProdutoDTO> listarPorTituloDTO(String titulo, int pagina, int itens){
-		List<Produto> produtosSalvos = listarPorTitulo(titulo, pagina, itens);
+	public List<ProdutoDTO> listarPorTituloDTO(String titulo, int pagina){
+		List<Produto> produtosSalvos = listarPorTitulo(titulo, pagina);
 		verificarListaVaziaExcecao(produtosSalvos);
 		List<ProdutoDTO> produtosDTO = transformarProdutosEmDTO(produtosSalvos);
 		return produtosDTO;
 	}
 	
 	@Transactional
-	public List<Produto> listarPorCategoria(String categoria, int pagina, int itens){
-		return produtoRepository.findByCategoria(categoria, PageRequest.of(pagina, itens));		
+	public List<Produto> listarPorCategoria(String categoria, int pagina){
+		return produtoRepository.findByCategoria(categoria, PageRequest.of(pagina, 18));		
 	}
 	
 	@Transactional
-	public List<ProdutoDTO> listarPorCategoriaDTO(String categoria, int pagina, int itens){
-		List<Produto> produtosSalvos = listarPorCategoria(categoria, pagina, itens);
+	public List<ProdutoDTO> listarPorCategoriaDTO(String categoria, int pagina){
+		List<Produto> produtosSalvos = listarPorCategoria(categoria, pagina);
 		verificarListaVaziaExcecao(produtosSalvos);
 		List<ProdutoDTO> produtosDTO = transformarProdutosEmDTO(produtosSalvos);
 		return produtosDTO;
 	}
 	
 	@Transactional
-	public List<Produto> listarProdutosDeUmaloja(String loja, int pagina, int itens){
-		return produtoRepository.findByNomeLoja(loja, PageRequest.of(pagina, itens));		
+	public List<Produto> listarProdutosDeUmaloja(String loja, int pagina){
+		return produtoRepository.findByNomeLoja(loja, PageRequest.of(pagina, 18));		
 	}
 	
 	@Transactional
-	public List<ProdutoDTO> listarProdutosDeUmalojaDTO(String loja, int pagina, int itens){
-		List<Produto> produtosSalvos = listarProdutosDeUmaloja(loja, pagina, itens);
+	public List<ProdutoDTO> listarProdutosDeUmalojaDTO(String loja, int pagina){
+		List<Produto> produtosSalvos = listarProdutosDeUmaloja(loja, pagina);
 		verificarListaVaziaExcecao(produtosSalvos);
 		List<ProdutoDTO> produtosDTO = transformarProdutosEmDTO(produtosSalvos);
 		return produtosDTO;
@@ -136,12 +136,12 @@ public class ProdutoService {
 	}
 	
 	@Transactional
-	public Produto novoProduto(ProdutoPostRequestBody produto) {
+	public ProdutoDTO novoProduto(ProdutoPostRequestBody produto) {
 		if(produto.getImagens().size()>6) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "é permitido no máximo 6 imagens por produto.");
 		}
 		Loja loja = lojaService.encontrarPorIdOuExcecao(produto.getLojaId());
-		return produtoRepository.save(Produto.builder()
+		Produto novoProduto = produtoRepository.save(Produto.builder()
 				.titulo(produto.getTitulo())
 				.valor(produto.getValor())
 				.categoria(produto.getCategoria())
@@ -154,6 +154,8 @@ public class ProdutoService {
 				.somaAvaliacoes(0L)
 				.avaliacao(null)
 				.build());
+		
+		return transformarUmProdutoEmDTO(novoProduto);
 	}
 	
 	@Transactional
@@ -234,6 +236,7 @@ public class ProdutoService {
 		for(Categoria categoriaSalva : categorias) {
 			List<ProdutoDTO> produtosDTO = transformarProdutosEmDTO(categoriaSalva.getProdutos());
 			CategoriaDTO categoriaDTO = CategoriaDTO.builder()
+					.id(categoriaSalva.getId())
 					.titulo(categoriaSalva.getTitulo())
 					.produtos(produtosDTO)
 					.build();

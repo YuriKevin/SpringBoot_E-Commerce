@@ -40,8 +40,8 @@ public class LojaController {
     }
 	
 	@GetMapping(path = "/nome/{nome}")
-    public ResponseEntity<List<LojaDTO>> encontrarPorNome(@PathVariable String nome, @RequestParam int pagina, @RequestParam int itens){
-        return ResponseEntity.ok(lojaService.encontrarPorNome(nome, pagina, itens));
+    public ResponseEntity<List<LojaDTO>> encontrarPorNome(@PathVariable String nome, @RequestParam int pagina){
+        return ResponseEntity.ok(lojaService.encontrarPorNome(nome, pagina));
     }
 	
 	

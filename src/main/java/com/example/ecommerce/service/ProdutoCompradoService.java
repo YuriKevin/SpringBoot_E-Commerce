@@ -61,16 +61,16 @@ public class ProdutoCompradoService {
 	}
 	
 	@Transactional
-	public List<ProdutoCompradoDTO> listarProdutosVendidosPorUmaLoja(Long lojaId, int pagina, int itens){
+	public List<ProdutoCompradoDTO> listarProdutosVendidosPorUmaLoja(Long lojaId, int pagina){
 		Loja loja = lojaService.encontrarPorIdOuExcecao(lojaId);
-		List<ProdutoCompradoDTO> produtosCompradosDTO = transformarArrayEmDTO(produtoCompradoRepository.findByLoja(loja, PageRequest.of(pagina, itens)));
+		List<ProdutoCompradoDTO> produtosCompradosDTO = transformarArrayEmDTO(produtoCompradoRepository.findByLoja(loja, PageRequest.of(pagina, 18)));
 		return produtosCompradosDTO;
 	}
 	
 	@Transactional
-	public List<ProdutoCompradoDTO> listarProdutosCompradosPorUmUsuario(Long usuarioId, int pagina, int itens){
+	public List<ProdutoCompradoDTO> listarProdutosCompradosPorUmUsuario(Long usuarioId, int pagina){
 		Usuario usuario = usuarioService.encontrarPorIdOuExcecao(usuarioId);
-		List<ProdutoCompradoDTO> produtosCompradosDTO = transformarArrayEmDTO(produtoCompradoRepository.findByUsuario(usuario, PageRequest.of(pagina, itens)));
+		List<ProdutoCompradoDTO> produtosCompradosDTO = transformarArrayEmDTO(produtoCompradoRepository.findByUsuario(usuario, PageRequest.of(pagina, 19)));
 		return produtosCompradosDTO;
 	}
 	
