@@ -5,6 +5,6 @@ import lombok.Data;
 public class LojaPutRequestBody {
 	private Long id;
 	private String nome;
-    private String senha;
+    private Long codigoLogin;
     private String logo;
 }

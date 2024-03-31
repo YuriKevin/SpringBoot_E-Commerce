@@ -95,7 +95,7 @@ public class LojaService {
 	public void atualizarDados(LojaPutRequestBody loja) {
 		Loja lojaSalva = encontrarPorIdOuExcecao(loja.getId());
 		lojaSalva.setNome(loja.getNome());
-		lojaSalva.setSenha(loja.getSenha());
+		lojaSalva.setCodigoLogin(loja.getCodigoLogin());
 		lojaSalva.setLogo(loja.getLogo());
 		lojaRepository.save(lojaSalva);
 	}
