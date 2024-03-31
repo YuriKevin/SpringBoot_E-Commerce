@@ -62,7 +62,7 @@ public class UsuarioService {
 		Usuario usuarioSalvo = encontrarPorIdOuExcecao(usuario.getId());
 		validarNome(usuario.getNome());
 		usuarioSalvo.setNome(usuario.getNome());
-		usuarioSalvo.setSenha(usuario.getSenha());
+		usuarioSalvo.setEmail(usuario.getEmail());
 		usuarioRepository.save(usuarioSalvo);
 	}
 	
