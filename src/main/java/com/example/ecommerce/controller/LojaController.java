@@ -89,5 +89,11 @@ public class LojaController {
 		lojaService.removerDetalhePreConfigurado(id, detalhe);
     	return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+	
+	@PutMapping(path = "/atualizarSenha")
+    public ResponseEntity<Void> atualizarSenha(@RequestParam Long id, @RequestParam String senha, @RequestParam String senhaAntiga){
+		lojaService.atualizarSenha(id, senha, senhaAntiga);
+    	return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 
 }

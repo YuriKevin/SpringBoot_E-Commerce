@@ -89,5 +89,16 @@ public class UsuarioService {
 		usuarioRepository.save(usuario);
 	}
 	
+	@Transactional
+	public void atualizarSenha(Long id, String senha, String senhaAntiga) {
+		Usuario usuario = encontrarPorIdOuExcecao(id);
+		if(usuario.getSenha() != senhaAntiga) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "A senha enterior está incorreta.");
+		}
+		usuario.setSenha(senha);
+		usuarioRepository.save(usuario);
+	}
+	
+	
 	
 }

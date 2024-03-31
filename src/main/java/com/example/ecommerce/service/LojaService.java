@@ -11,6 +11,7 @@ import com.example.ecommerce.dto.LojaDTO;
 import com.example.ecommerce.model.Categoria;
 import com.example.ecommerce.model.DetalhesPreConfigurados;
 import com.example.ecommerce.model.Loja;
+import com.example.ecommerce.model.Usuario;
 import com.example.ecommerce.repository.LojaRepository;
 import com.example.ecommerce.requests.LojaPostRequestBody;
 import com.example.ecommerce.requests.LojaPutRequestBody;
@@ -171,6 +172,16 @@ public class LojaService {
 		if(lojas.isEmpty()) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "0 resultados encontrados para a pesquisa.");
 		}
+	}
+	
+	@Transactional
+	public void atualizarSenha(Long id, String senha, String senhaAntiga) {
+		Loja loja = encontrarPorIdOuExcecao(id);
+		if(loja.getSenha() != senhaAntiga) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "A senha enterior está incorreta.");
+		}
+		loja.setSenha(senha);
+		lojaRepository.save(loja);
 	}
 	
 }
