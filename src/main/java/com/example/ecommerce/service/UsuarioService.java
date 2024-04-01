@@ -52,9 +52,9 @@ public class UsuarioService {
 	public Usuario login(String email, String senha) {
 		Usuario usuario = encontrarPorEmailOuExcecao(email);
 		if(usuario.getSenha().equals(senha)) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Usuário ou senha incorretos.");
+			return usuario;
 		}
-		return usuario;
+		throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Usuário ou senha incorretos.");
 	}
 	
 	@Transactional
