@@ -23,6 +23,7 @@ public class ProdutoService {
 	private final ProdutoRepository produtoRepository;
 	private final LojaService lojaService;
 	
+	
 	@Transactional
 	public Produto encontrarPorIdOuExcecao(Long id){
 		return produtoRepository.findById(id)
@@ -85,7 +86,7 @@ public class ProdutoService {
 	}
 	
 	@Transactional
-	public List<ProdutoDTO> listarProdutosMaisVendidos(String loja){
+	public List<ProdutoDTO> listarProdutosMaisVendidos(){
 		List<Produto> produtosSalvos = produtoRepository.findTop10ByOrderByQuantidadeVendidaDesc();
 		verificarListaVaziaExcecao(produtosSalvos);
 		List<ProdutoDTO> produtosDTO = transformarProdutosEmDTO(produtosSalvos);
@@ -103,11 +104,13 @@ public class ProdutoService {
 	public List<ProdutoDTO> transformarProdutosEmDTO(List<Produto> produtos){
 		List<ProdutoDTO> produtosDTO = new ArrayList<>();
 		for(Produto produtoSalvo : produtos) {
+			List<String> imagemPrincipal = new ArrayList<>();
+			imagemPrincipal.add(produtoSalvo.getImagens().get(0));
 			ProdutoDTO produtoDTO = ProdutoDTO.builder()
 					.id(produtoSalvo.getId())
 					.titulo(produtoSalvo.getTitulo())
 					.valor(produtoSalvo.getValor())
-					.imagens(produtoSalvo.getImagens())
+					.imagens(imagemPrincipal)
 					.detalhes(produtoSalvo.getDetalhes())
 					.quantidade(produtoSalvo.getQuantidade())
 					.quantidadeVendida(produtoSalvo.getQuantidadeVendida())
@@ -243,6 +246,20 @@ public class ProdutoService {
 					categoriasDTO.add(categoriaDTO);
 		}
 		return categoriasDTO;
+	}
+	
+	@Transactional
+	public List<ProdutoDTO> produtosEmDestaque(){
+		List<ProdutoDTO> produtosDTO = new ArrayList<>();
+		 ProdutoDTO produto1 = transformarUmProdutoEmDTO(encontrarPorIdOuExcecao(1L));
+		 produtosDTO.add(produto1);
+		 ProdutoDTO produto2 = transformarUmProdutoEmDTO(encontrarPorIdOuExcecao(2L));
+		 produtosDTO.add(produto2);
+		 ProdutoDTO produto3 = transformarUmProdutoEmDTO(encontrarPorIdOuExcecao(3L));
+		 produtosDTO.add(produto3);
+		 ProdutoDTO produto4 = transformarUmProdutoEmDTO(encontrarPorIdOuExcecao(4L));
+		 produtosDTO.add(produto4);
+		 return produtosDTO;
 	}
 	
 }
