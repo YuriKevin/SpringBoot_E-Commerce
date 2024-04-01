@@ -31,9 +31,13 @@ import lombok.RequiredArgsConstructor;
 public class ProdutoController {
 	private final ProdutoService produtoService;
 	
-	@GetMapping(path = "/{id}")
+	@GetMapping(path = "teste/{id}")
     public ResponseEntity<Produto> encontrarPorId(@PathVariable Long id){
         return ResponseEntity.ok(produtoService.encontrarPorIdOuExcecao(id));
+    }
+	@GetMapping(path = "/{id}")
+    public ResponseEntity<ProdutoDTO> encontrarPorIdDTO(@PathVariable Long id){
+        return ResponseEntity.ok(produtoService.encontrarPorIdDTO(id));
     }
 	
 	@GetMapping(path = "/titulo/{titulo}")
@@ -54,6 +58,15 @@ public class ProdutoController {
 	@GetMapping(path = "/categorias/{id}")
     public ResponseEntity<List<CategoriaDTO>> listarProdutosCategorizadosDeUmaLoja(@PathVariable Long id){
         return ResponseEntity.ok(produtoService.listarProdutosCategorizadosDeUmaLoja(id));
+    }
+	@GetMapping(path = "/top")
+    public ResponseEntity<List<ProdutoDTO>> listarProdutosMaisVendidos(){
+        return ResponseEntity.ok(produtoService.listarProdutosMaisVendidos());
+    }
+	
+	@GetMapping(path = "/destaques")
+    public ResponseEntity<List<ProdutoDTO>> produtosEmDestaque(){
+        return ResponseEntity.ok(produtoService.produtosEmDestaque());
     }
 	
 	@PostMapping
