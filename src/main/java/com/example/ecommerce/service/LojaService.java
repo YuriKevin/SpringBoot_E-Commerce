@@ -86,9 +86,9 @@ public class LojaService {
 	public Loja login(Long codigoLogin, String senha){
 		Loja loja = encontrarPorCodigoLoginOuExcecao(codigoLogin);
 		if(loja.getSenha().equals(senha)) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Código ou senha incorretos.");
+			return loja;
 		}
-		return loja;
+		throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Código ou senha incorretos.");
 	}
 	
 	@Transactional
