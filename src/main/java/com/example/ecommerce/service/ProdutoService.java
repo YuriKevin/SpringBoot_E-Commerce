@@ -253,13 +253,18 @@ public class ProdutoService {
 		List<ProdutoDTO> produtosDTO = new ArrayList<>();
 		 ProdutoDTO produto1 = transformarUmProdutoEmDTO(encontrarPorIdOuExcecao(1L));
 		 produtosDTO.add(produto1);
-		 ProdutoDTO produto2 = transformarUmProdutoEmDTO(encontrarPorIdOuExcecao(2L));
-		 produtosDTO.add(produto2);
 		 ProdutoDTO produto3 = transformarUmProdutoEmDTO(encontrarPorIdOuExcecao(3L));
 		 produtosDTO.add(produto3);
 		 ProdutoDTO produto4 = transformarUmProdutoEmDTO(encontrarPorIdOuExcecao(4L));
 		 produtosDTO.add(produto4);
 		 return produtosDTO;
+	}
+	
+	@Transactional
+	public List<ProdutoDTO> produtosHistoricoNavegacao(String palavraPesquisada){
+		List<Produto> produtosSalvos = produtoRepository.findRandomByTitulo(palavraPesquisada);
+		List<ProdutoDTO> produtosDTO = transformarProdutosEmDTO(produtosSalvos);
+		return produtosDTO;
 	}
 	
 }

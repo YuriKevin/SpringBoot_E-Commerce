@@ -35,5 +35,8 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long>{
     @Modifying
     @Query("UPDATE Produto p SET p.disponivel = true WHERE p.loja = :loja")
     void setDisponivelTrueByLoja(@Param("loja") Loja loja);
+	
+	@Query("SELECT p FROM Produto p WHERE p.titulo = :titulo ORDER BY RAND() LIMIT 4")
+    List<Produto> findRandomByTitulo(@Param("titulo") String titulo);
 
 }

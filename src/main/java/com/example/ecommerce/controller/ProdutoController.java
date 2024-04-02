@@ -69,6 +69,11 @@ public class ProdutoController {
         return ResponseEntity.ok(produtoService.produtosEmDestaque());
     }
 	
+	@GetMapping(path = "/historico/{palavraPesquisada}")
+    public ResponseEntity<List<ProdutoDTO>> produtosHistoricoNavegacao(@PathVariable String palavraPesquisada){
+        return ResponseEntity.ok(produtoService.produtosHistoricoNavegacao(palavraPesquisada));
+    }
+	
 	@PostMapping
     public ResponseEntity<ProdutoDTO> novoProduto(@RequestBody @Valid ProdutoPostRequestBody produto){
         return new ResponseEntity<>(produtoService.novoProduto(produto), HttpStatus.CREATED);
