@@ -11,6 +11,7 @@ import com.example.ecommerce.requests.ProdutoPostRequestBody;
 import com.example.ecommerce.requests.LojaPostRequestBody;
 import jakarta.annotation.PostConstruct;
 import com.example.ecommerce.model.Loja;
+import com.example.ecommerce.model.DetalhesProduto;
 
 @Component
 public class DataInitializer {
@@ -25,10 +26,7 @@ public class DataInitializer {
 
     @PostConstruct
     public void init() {
-    	Produto produtoExiste = produtoService.encontrarPorIdOuExcecao(1L);
-    	if(produtoExiste != null) {
-    		return;
-    	}
+    	
     	LojaPostRequestBody amazing = new LojaPostRequestBody();
     	amazing.setCodigoLogin(11111111L);
     	//barra final
@@ -80,7 +78,25 @@ public class DataInitializer {
     	lojaService.cadastrar(samsung);
     	
     	
+    	
         ProdutoPostRequestBody produto1Amazing = new ProdutoPostRequestBody();
+        List<DetalhesProduto> detalhes1Amazing = new ArrayList<>();
+        DetalhesProduto detalhe1Amazing = new DetalhesProduto();
+        detalhe1Amazing.setTitulo("Alto falante"); 
+        detalhe1Amazing.setDescricao("1 alto-falante de 1,95 com direcionamento frontal");
+        detalhes1Amazing.add(detalhe1Amazing);
+        
+        DetalhesProduto detalhe2Amazing = new DetalhesProduto();
+        detalhe2Amazing.setTitulo("Dimensões"); 
+        detalhe2Amazing.setDescricao("99 mm x 83 mm x 91 mm");
+        detalhes1Amazing.add(detalhe2Amazing);
+        
+        DetalhesProduto detalhe3Amazing = new DetalhesProduto();
+        detalhe3Amazing.setTitulo("Assistente virtual"); 
+        detalhe3Amazing.setDescricao("Alexa integrada");
+        detalhes1Amazing.add(detalhe3Amazing);
+        
+        produto1Amazing.setDetalhes(detalhes1Amazing);
         produto1Amazing.setTitulo("Echo Dot 5ª geração | O Echo Dot com o melhor som já lançado | Cor Preta");
         produto1Amazing.setCategoria("Assistente virtual");
         produto1Amazing.setDisponivel(true);
