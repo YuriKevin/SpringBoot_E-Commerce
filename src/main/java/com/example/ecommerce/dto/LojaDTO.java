@@ -12,4 +12,5 @@ public class LojaDTO {
 	 	private Long id;
 	    private String nome;
 	    private String logo;
+	    private Long quantidadeVendida;
 }
