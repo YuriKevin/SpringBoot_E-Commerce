@@ -9,8 +9,11 @@ import com.example.ecommerce.model.Loja;
 
 public interface LojaRepository extends JpaRepository<Loja, Long>{
 	Loja findByCodigoLogin(Long codigoLogin);
-	List<Loja> findByNomeOrderByQuantidadeVendidaDesc(String nome, Pageable page);
+	List<Loja> findByNomeContainingIgnoreCaseOrderByQuantidadeVendidaDesc(String nome, Pageable page);
 	
 	@Query("SELECT l FROM Loja l ORDER BY l.quantidadeVendida DESC")
     List<Loja> findTop20ByOrderByQuantidadeVendidaDesc();
+	
+	@Query("SELECT l FROM Loja l ORDER BY l.quantidadeVendida DESC")
+    List<Loja> findLojasOrderByQuantidadeVendidaDesc(Pageable pageable);
 }
