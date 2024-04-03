@@ -13,9 +13,9 @@ import jakarta.transaction.Transactional;
 public interface ProdutoRepository extends JpaRepository<Produto, Long>{
 	@Transactional
     void deleteByLoja(Loja loja);
-	List<Produto> findByNomeLojaOrderByQuantidadeVendidaDesc(String loja, Pageable page);
-	List<Produto> findByTituloOrderByQuantidadeVendidaDesc(String titulo, Pageable page);
-	List<Produto> findByCategoriaOrderByQuantidadeVendidaDesc(String categoria, Pageable page);
+	List<Produto> findByLojaContainingIgnoreCaseOrderByQuantidadeVendidaDesc(Loja loja, Pageable page);
+	List<Produto> findByTituloContainingIgnoreCaseOrderByQuantidadeVendidaDesc(String titulo, Pageable page);
+	List<Produto> findByCategoriaContainingIgnoreCaseOrderByQuantidadeVendidaDesc(String categoria, Pageable page);
 	
 	@Query("SELECT p FROM Produto p ORDER BY p.id DESC")
     List<Produto> findLast30ByOrderByIdDesc();
@@ -23,8 +23,8 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long>{
 	@Query("SELECT p FROM Produto p ORDER BY p.quantidadeVendida DESC")
     List<Produto> findTop10ByOrderByQuantidadeVendidaDesc();
 	
-	@Query("SELECT p FROM Produto p WHERE p.nomeLoja = :nomeLoja ORDER BY p.quantidadeVendida DESC")
-    List<Produto> findTop10ByNomeLojaOrderByQuantidadeVendidaDesc(@Param("nomeLoja") String nomeLoja);
+	@Query("SELECT p FROM Produto p WHERE p.loja = :loja ORDER BY p.quantidadeVendida DESC")
+	List<Produto> findTop10ByLojaOrderByQuantidadeVendidaDesc(@Param("loja") Loja loja);
 	
 	@Transactional
     @Modifying
@@ -36,7 +36,7 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long>{
     @Query("UPDATE Produto p SET p.disponivel = true WHERE p.loja = :loja")
     void setDisponivelTrueByLoja(@Param("loja") Loja loja);
 	
-	@Query("SELECT p FROM Produto p WHERE p.titulo = :titulo ORDER BY RAND() LIMIT 4")
-    List<Produto> findRandomByTitulo(@Param("titulo") String titulo);
+	 @Query("SELECT p FROM Produto p WHERE LOWER(p.titulo) LIKE LOWER(concat('%', :titulo, '%')) ORDER BY RAND() LIMIT 4")
+	 List<Produto> findRandomByTitulo(@Param("titulo") String titulo);
 
 }
