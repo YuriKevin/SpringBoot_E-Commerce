@@ -11,6 +11,7 @@ import com.example.ecommerce.dto.LojaDTO;
 import com.example.ecommerce.model.Categoria;
 import com.example.ecommerce.model.DetalhesPreConfigurados;
 import com.example.ecommerce.model.Loja;
+import com.example.ecommerce.model.Produto;
 import com.example.ecommerce.model.Usuario;
 import com.example.ecommerce.repository.LojaRepository;
 import com.example.ecommerce.requests.LojaPostRequestBody;
@@ -46,7 +47,7 @@ public class LojaService {
 	
 	@Transactional
 	public List<LojaDTO> encontrarPorNome(String nome, int pagina){
-		List<Loja> lojasSalvas = lojaRepository.findByNomeOrderByQuantidadeVendidaDesc(nome, PageRequest.of(pagina, 18));
+		List<Loja> lojasSalvas = lojaRepository.findByNomeContainingIgnoreCaseOrderByQuantidadeVendidaDesc(nome, PageRequest.of(pagina, 18));
 		verificarListaVaziaExcecao(lojasSalvas);
 		List<LojaDTO> lojasDTO = transformarEmDTO(lojasSalvas);
 		return lojasDTO;
@@ -162,6 +163,7 @@ public class LojaService {
 					.id(lojaSalva.getId())
 					.nome(lojaSalva.getNome())
 					.logo(lojaSalva.getLogo())
+					.quantidadeVendida(lojaSalva.getQuantidadeVendida())
 					.build();
 			LojasDTO.add(lojaDTO);
 		}
@@ -182,6 +184,12 @@ public class LojaService {
 		}
 		loja.setSenha(senha);
 		lojaRepository.save(loja);
+	}
+	
+	@Transactional
+	public List<LojaDTO> listarLojas(int pagina){
+		List<Loja> lojas = lojaRepository.findLojasOrderByQuantidadeVendidaDesc(PageRequest.of(pagina, 18));
+		return transformarEmDTO(lojas);
 	}
 	
 }
