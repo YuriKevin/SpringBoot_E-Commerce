@@ -40,14 +40,19 @@ public class LojaController {
     }
 	
 	@GetMapping(path = "/nome/{nome}")
-    public ResponseEntity<List<LojaDTO>> encontrarPorNome(@PathVariable String nome, @RequestParam int pagina){
-        return ResponseEntity.ok(lojaService.encontrarPorNome(nome, pagina));
+    public ResponseEntity<List<LojaDTO>> encontrarPorNome(@PathVariable String nome, @RequestParam String pagina){
+        return ResponseEntity.ok(lojaService.encontrarPorNome(nome, Integer.parseInt(pagina)));
     }
 	
 	
 	@GetMapping(path = "/populares")
     public ResponseEntity<List<LojaDTO>> listarLojasMaisPopulares(){
         return ResponseEntity.ok(lojaService.listarLojasMaisPopulares());
+    }
+	
+	@GetMapping(path = "/listar/{pagina}")
+    public ResponseEntity<List<LojaDTO>> listarLojas(@PathVariable int pagina){
+        return ResponseEntity.ok(lojaService.listarLojas(pagina));
     }
 	
 	@GetMapping(path = "/login")
