@@ -50,14 +50,14 @@ public class UsuarioController {
     	return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 	
-	@PutMapping(path = "/adicionarCredito")
-    public ResponseEntity<Void> adicionarCredito(@RequestParam Long id, @RequestParam Double credito){
-		usuarioService.adicionarCredito(id, credito);
+	@PutMapping(path = "/adicionarCredito/{id}/{creditos}")
+    public ResponseEntity<Void> adicionarCredito(@PathVariable Long id, @PathVariable Double creditos){
+		usuarioService.adicionarCredito(id, creditos);
     	return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 	
 	@PutMapping(path = "/removerCredito")
-    public ResponseEntity<Void> removerCredito(@RequestParam Long id, @RequestParam Double credito){
+    public ResponseEntity<Void> removerCredito(@PathVariable Long id, @PathVariable Double credito){
 		usuarioService.removerCredito(id, credito);
     	return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
