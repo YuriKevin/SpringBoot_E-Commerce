@@ -28,13 +28,13 @@ public class ProdutoCompradoController {
 	private final ProdutoCompradoService produtoCompradoService;
 	
 	@GetMapping(path = "/loja/{id}")
-    public ResponseEntity<List<ProdutoCompradoDTO>> listarProdutosVendidosPorUmaLoja(@PathVariable Long lojaId, @RequestParam int pagina){
-        return ResponseEntity.ok(produtoCompradoService.listarProdutosVendidosPorUmaLoja(lojaId, pagina));
+    public ResponseEntity<List<ProdutoCompradoDTO>> listarProdutosVendidosPorUmaLoja(@PathVariable Long lojaId, @RequestParam String pagina){
+        return ResponseEntity.ok(produtoCompradoService.listarProdutosVendidosPorUmaLoja(lojaId, Integer.parseInt(pagina)));
     }
 	
 	@GetMapping(path = "/usuario/{id}")
-    public ResponseEntity<List<ProdutoCompradoDTO>> listarProdutosCompradosPorUmUsuario(@PathVariable Long usuarioId, @RequestParam int pagina){
-        return ResponseEntity.ok(produtoCompradoService.listarProdutosCompradosPorUmUsuario(usuarioId, pagina));
+    public ResponseEntity<List<ProdutoCompradoDTO>> listarProdutosCompradosPorUmUsuario(@PathVariable Long usuarioId, @RequestParam String pagina){
+        return ResponseEntity.ok(produtoCompradoService.listarProdutosCompradosPorUmUsuario(usuarioId, Integer.parseInt(pagina)));
     }
 	
 	@PostMapping
@@ -43,8 +43,8 @@ public class ProdutoCompradoController {
     }
 	
 	@PutMapping(path = "avaliarProduto")
-    public ResponseEntity<Void> avaliarProdutoComprado(@RequestParam Long id, @RequestParam int avaliacao, @RequestParam int itens){
-		produtoCompradoService.avaliarProdutoComprado(id, avaliacao);
+    public ResponseEntity<Void> avaliarProdutoComprado(@RequestParam Long id, @RequestParam String avaliacao){
+		produtoCompradoService.avaliarProdutoComprado(id, Integer.parseInt(avaliacao));
     	return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 	
