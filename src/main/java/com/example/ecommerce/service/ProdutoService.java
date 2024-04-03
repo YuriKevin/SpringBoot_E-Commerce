@@ -1,6 +1,8 @@
 package com.example.ecommerce.service;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Collections;
+
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -48,7 +50,7 @@ public class ProdutoService {
 	
 	@Transactional
 	public List<Produto> listarPorTitulo(String titulo, int pagina){
-		return produtoRepository.findByTituloOrderByQuantidadeVendidaDesc(titulo, PageRequest.of(pagina, 18));
+		return produtoRepository.findByTituloContainingIgnoreCaseOrderByQuantidadeVendidaDesc(titulo, PageRequest.of(pagina, 18));
 	}
 	
 	@Transactional
@@ -61,7 +63,7 @@ public class ProdutoService {
 	
 	@Transactional
 	public List<Produto> listarPorCategoria(String categoria, int pagina){
-		return produtoRepository.findByCategoriaOrderByQuantidadeVendidaDesc(categoria, PageRequest.of(pagina, 18));		
+		return produtoRepository.findByCategoriaContainingIgnoreCaseOrderByQuantidadeVendidaDesc(categoria, PageRequest.of(pagina, 18));		
 	}
 	
 	@Transactional
@@ -73,12 +75,13 @@ public class ProdutoService {
 	}
 	
 	@Transactional
-	public List<Produto> listarProdutosDeUmaloja(String loja, int pagina){
-		return produtoRepository.findByNomeLojaOrderByQuantidadeVendidaDesc(loja, PageRequest.of(pagina, 18));		
+	public List<Produto> listarProdutosDeUmaloja(Long lojaId, int pagina){
+		Loja loja = lojaService.encontrarPorIdOuExcecao(lojaId);
+		return produtoRepository.findByLojaContainingIgnoreCaseOrderByQuantidadeVendidaDesc(loja, PageRequest.of(pagina, 18));		
 	}
 	
 	@Transactional
-	public List<ProdutoDTO> listarProdutosDeUmalojaDTO(String loja, int pagina){
+	public List<ProdutoDTO> listarProdutosDeUmalojaDTO(Long loja, int pagina){
 		List<Produto> produtosSalvos = listarProdutosDeUmaloja(loja, pagina);
 		verificarListaVaziaExcecao(produtosSalvos);
 		List<ProdutoDTO> produtosDTO = transformarProdutosEmDTO(produtosSalvos);
@@ -94,8 +97,9 @@ public class ProdutoService {
 	}
 	
 	@Transactional
-	public List<ProdutoDTO> listarProdutosMaisVendidosDeUmaLoja(String loja){
-		List<Produto> produtosSalvos = produtoRepository.findTop10ByNomeLojaOrderByQuantidadeVendidaDesc(loja);
+	public List<ProdutoDTO> listarProdutosMaisVendidosDeUmaLoja(Long lojaId){
+		Loja loja = lojaService.encontrarPorIdOuExcecao(lojaId);
+		List<Produto> produtosSalvos = produtoRepository.findTop10ByLojaOrderByQuantidadeVendidaDesc(loja);
 		verificarListaVaziaExcecao(produtosSalvos);
 		List<ProdutoDTO> produtosDTO = transformarProdutosEmDTO(produtosSalvos);
 		return produtosDTO;
@@ -261,10 +265,20 @@ public class ProdutoService {
 	}
 	
 	@Transactional
-	public List<ProdutoDTO> produtosHistoricoNavegacao(String palavraPesquisada){
-		List<Produto> produtosSalvos = produtoRepository.findRandomByTitulo(palavraPesquisada);
+	public List<ProdutoDTO> produtosHistoricoNavegacao(List<String> palavrasPesquisadas){
+		List<Produto> produtosSalvos = new ArrayList<>();
+		for(String palavra : palavrasPesquisadas) {
+			 produtosSalvos.addAll(produtoRepository.findRandomByTitulo(palavra));
+		}
+		Collections.shuffle(produtosSalvos);
 		List<ProdutoDTO> produtosDTO = transformarProdutosEmDTO(produtosSalvos);
 		return produtosDTO;
+	}
+	
+	@Transactional
+	public List<ProdutoDTO> produtosMaisRecentes(){
+		List<ProdutoDTO> produtosDTO = transformarProdutosEmDTO(produtoRepository.findLast30ByOrderByIdDesc());
+		 return produtosDTO;
 	}
 	
 }
