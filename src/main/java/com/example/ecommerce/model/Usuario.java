@@ -1,4 +1,6 @@
 package com.example.ecommerce.model;
+import javax.validation.constraints.DecimalMax;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,5 +24,6 @@ public class Usuario {
 	@Column(unique = true)
 	private String email;
 	private String senha;
+	@DecimalMax(value = "9999999999.99", inclusive = true, message = "O valor deve ter no máximo duas casas decimais")
 	private Double credito;
 }

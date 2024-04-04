@@ -1,5 +1,8 @@
 package com.example.ecommerce.model;
 import java.util.List;
+
+import javax.validation.constraints.DecimalMax;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -28,6 +31,7 @@ public class Loja {
     private Long codigoLogin;
     private String nome;
     private String senha;
+    @DecimalMax(value = "9999999999.99", inclusive = true, message = "O valor deve ter no máximo duas casas decimais")
     private Double credito;
     private Long quantidadeVendida;
     @Lob
