@@ -31,7 +31,7 @@ import lombok.RequiredArgsConstructor;
 public class ProdutoController {
 	private final ProdutoService produtoService;
 	
-	@GetMapping(path = "teste/{id}")
+	@GetMapping(path = "/teste/{id}")
     public ResponseEntity<Produto> encontrarPorId(@PathVariable Long id){
         return ResponseEntity.ok(produtoService.encontrarPorIdOuExcecao(id));
     }
