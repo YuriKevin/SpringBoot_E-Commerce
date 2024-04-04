@@ -156,6 +156,7 @@ public class ProdutoService {
 				.imagens(produto.getImagens())
 				.loja(loja)
 				.detalhes(produto.getDetalhes())
+				.quantidade(produto.getQuantidade())
 				.quantidadeVendida(0L)
 				.quantidadeAvaliacoes(0L)
 				.somaAvaliacoes(0L)
@@ -220,8 +221,9 @@ public class ProdutoService {
 	@Transactional
 	public void produtoVendido(Produto produto, int quantidade){
 		produto.setQuantidade(produto.getQuantidade()-quantidade);
-		produto.setQuantidadeAvaliacoes(produto.getQuantidadeVendida() + quantidade);
+		produto.setQuantidadeVendida(produto.getQuantidadeVendida()+produto.getQuantidade());
 		lojaService.adicionarCredito(produto.getLoja().getId(), produto.getValor() * quantidade);
+		lojaService.adicionarQuantidadeVendida(produto.getLoja().getId(), quantidade);
 		produtoRepository.save(produto);
 	}
 	
@@ -277,7 +279,7 @@ public class ProdutoService {
 	
 	@Transactional
 	public List<ProdutoDTO> produtosMaisRecentes(){
-		List<ProdutoDTO> produtosDTO = transformarProdutosEmDTO(produtoRepository.findLast30ByOrderByIdDesc());
+		List<ProdutoDTO> produtosDTO = transformarProdutosEmDTO(produtoRepository.findLast30ByIdDesc());
 		 return produtosDTO;
 	}
 	
