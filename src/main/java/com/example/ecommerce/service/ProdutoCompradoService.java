@@ -40,6 +40,9 @@ public class ProdutoCompradoService {
 		Usuario usuario = usuarioService.encontrarPorIdOuExcecao(usuarioId);
 		for(ProdutoCompradoPostRequestBody produto : produtos) {
 			Produto produtoSalvo = produtoService.encontrarPorIdOuExcecao(produto.getProdutoId());
+			if(produtoSalvo.getQuantidade()<produto.getQuantidade()) {
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Produto com estoque insuficiente. Quantidade disponível: "+produtoSalvo.getQuantidade());
+			}
 			Loja loja = produtoSalvo.getLoja();
 			ProdutoComprado produtoComprado = produtoCompradoRepository.save(ProdutoComprado.builder()
 					.produto(produtoSalvo)
@@ -52,6 +55,7 @@ public class ProdutoCompradoService {
 					.build());
 			produtosComprados.add(produtoComprado);
 			produtoService.produtoVendido(produtoSalvo, produto.getQuantidade());
+			produtoService.adicionarQuantidadeVendida(produtoComprado);
 		}
 		Double valorTotalCompra = calcularValorCompra(produtosComprados);
 		usuarioService.removerCredito(usuarioId, valorTotalCompra);
@@ -103,7 +107,7 @@ public class ProdutoCompradoService {
 	@Transactional
 	public void avaliarProdutoComprado(Long produtoCompradoId, int avaliacao) {
 		if(avaliacao!=0 && avaliacao!=1 && avaliacao!=2 && avaliacao!=3 && avaliacao!=4 && avaliacao!=5) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Escolha um número inteiro de 1 a 5 para avaliar.");
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Escolha um número inteiro de 0 a 5 para avaliar.");
 		}
 		ProdutoComprado produto = encontrarPorIdOuExcecao(produtoCompradoId);
 		if(produto.isAvaliado()) {
