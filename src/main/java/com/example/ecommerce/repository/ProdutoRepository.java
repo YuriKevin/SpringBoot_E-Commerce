@@ -18,7 +18,7 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long>{
 	List<Produto> findByCategoriaContainingIgnoreCaseOrderByQuantidadeVendidaDesc(String categoria, Pageable page);
 	
 	@Query("SELECT p FROM Produto p ORDER BY p.id DESC")
-    List<Produto> findLast30ByOrderByIdDesc();
+	List<Produto> findLast30ByIdDesc();
 	
 	@Query("SELECT p FROM Produto p ORDER BY p.quantidadeVendida DESC")
     List<Produto> findTop10ByOrderByQuantidadeVendidaDesc();
