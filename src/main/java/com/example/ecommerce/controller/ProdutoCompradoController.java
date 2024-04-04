@@ -32,18 +32,18 @@ public class ProdutoCompradoController {
         return ResponseEntity.ok(produtoCompradoService.listarProdutosVendidosPorUmaLoja(lojaId, Integer.parseInt(pagina)));
     }
 	
-	@GetMapping(path = "/usuario/{id}")
+	@GetMapping(path = "/usuario/{usuarioId}")
     public ResponseEntity<List<ProdutoCompradoDTO>> listarProdutosCompradosPorUmUsuario(@PathVariable Long usuarioId, @RequestParam String pagina){
         return ResponseEntity.ok(produtoCompradoService.listarProdutosCompradosPorUmUsuario(usuarioId, Integer.parseInt(pagina)));
     }
 	
-	@PostMapping
-    public ResponseEntity<List<ProdutoCompradoDTO>> novaCompra(@RequestParam Long id, @RequestBody @Valid List<ProdutoCompradoPostRequestBody> produtos){
+	@PostMapping(path = "/{id}")
+    public ResponseEntity<List<ProdutoCompradoDTO>> novaCompra(@PathVariable Long id, @RequestBody @Valid List<ProdutoCompradoPostRequestBody> produtos){
         return new ResponseEntity<>(produtoCompradoService.novaCompra(id, produtos), HttpStatus.CREATED);
     }
 	
-	@PutMapping(path = "avaliarProduto")
-    public ResponseEntity<Void> avaliarProdutoComprado(@RequestParam Long id, @RequestParam String avaliacao){
+	@PutMapping(path = "avaliarProduto/{id}")
+    public ResponseEntity<Void> avaliarProdutoComprado(@PathVariable Long id, @RequestParam String avaliacao){
 		produtoCompradoService.avaliarProdutoComprado(id, Integer.parseInt(avaliacao));
     	return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
