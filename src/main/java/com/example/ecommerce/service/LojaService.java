@@ -121,7 +121,7 @@ public class LojaService {
 	@Transactional
 	public void adicionarQuantidadeVendida(Loja loja, int quantidade) {
 		loja.setQuantidadeVendida(loja.getQuantidadeVendida() + quantidade);
-		lojaRepository.save(loja);
+		lojaRepository.save(loja); 
 	}
 	
 	@Transactional
