@@ -27,7 +27,7 @@ import lombok.RequiredArgsConstructor;
 public class ProdutoCompradoController {
 	private final ProdutoCompradoService produtoCompradoService;
 	
-	@GetMapping(path = "/loja/{id}")
+	@GetMapping(path = "/loja/{lojaId}")
     public ResponseEntity<List<ProdutoCompradoDTO>> listarProdutosVendidosPorUmaLoja(@PathVariable Long lojaId, @RequestParam String pagina){
         return ResponseEntity.ok(produtoCompradoService.listarProdutosVendidosPorUmaLoja(lojaId, Integer.parseInt(pagina)));
     }
