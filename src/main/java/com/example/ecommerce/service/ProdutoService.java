@@ -77,7 +77,13 @@ public class ProdutoService {
 	@Transactional
 	public List<Produto> listarProdutosDeUmaloja(Long lojaId, int pagina){
 		Loja loja = lojaService.encontrarPorIdOuExcecao(lojaId);
-		return produtoRepository.findByLojaContainingIgnoreCaseOrderByQuantidadeVendidaDesc(loja, PageRequest.of(pagina, 18));		
+		return produtoRepository.findByLojaOrderByQuantidadeVendidaDesc(loja, PageRequest.of(pagina, 18));		
+	}
+	
+	@Transactional
+	public List<ProdutoDTO> listarProdutosDeUmalojaPorTitulo(Long lojaId, String titulo, int pagina ){
+		Loja loja = lojaService.encontrarPorIdOuExcecao(lojaId);
+		return transformarProdutosEmDTO(produtoRepository.findByLojaAndTituloContainingIgnoreCase(loja, titulo, PageRequest.of(pagina, 18)));		
 	}
 	
 	@Transactional
@@ -193,17 +199,8 @@ public class ProdutoService {
 		produtoRepository.save(produto);
 	}
 	
-	@Transactional
 	public Double calcularAvaliacao(Long soma, Long quantidade) {
 		return (double) (soma/quantidade);
-	}
-	
-	@Transactional
-	public void adicionarQuantidadeVendida(ProdutoComprado produtoComprado){
-		Produto produtoSalvo = encontrarPorIdOuExcecao(produtoComprado.getProduto().getId());
-		produtoSalvo.setQuantidadeVendida(produtoSalvo.getQuantidadeVendida()+ produtoComprado.getQuantidade());
-		produtoRepository.save(produtoSalvo);
-		
 	}
 	
 	@Transactional
@@ -220,11 +217,11 @@ public class ProdutoService {
 	
 	@Transactional
 	public void produtoVendido(Produto produto, int quantidade){
-		produto.setQuantidade(produto.getQuantidade()-quantidade);
-		produto.setQuantidadeVendida(produto.getQuantidadeVendida()+produto.getQuantidade());
-		lojaService.adicionarCredito(produto.getLoja().getId(), produto.getValor() * quantidade);
-		lojaService.adicionarQuantidadeVendida(produto.getLoja().getId(), quantidade);
+		produto.setQuantidade(produto.getQuantidade() - quantidade);
+		produto.setQuantidadeVendida(produto.getQuantidadeVendida() + quantidade);
 		produtoRepository.save(produto);
+		lojaService.adicionarCredito(produto.getLoja(), produto.getValor() * quantidade);
+		lojaService.adicionarQuantidadeVendida(produto.getLoja(), quantidade);
 	}
 	
 	public void verificarListaVaziaExcecao(List<Produto> produtos) {

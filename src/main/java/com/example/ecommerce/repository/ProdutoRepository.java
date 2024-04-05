@@ -13,7 +13,7 @@ import jakarta.transaction.Transactional;
 public interface ProdutoRepository extends JpaRepository<Produto, Long>{
 	@Transactional
     void deleteByLoja(Loja loja);
-	List<Produto> findByLojaContainingIgnoreCaseOrderByQuantidadeVendidaDesc(Loja loja, Pageable page);
+	List<Produto> findByLojaOrderByQuantidadeVendidaDesc(Loja loja, Pageable page);
 	List<Produto> findByTituloContainingIgnoreCaseOrderByQuantidadeVendidaDesc(String titulo, Pageable page);
 	List<Produto> findByCategoriaContainingIgnoreCaseOrderByQuantidadeVendidaDesc(String categoria, Pageable page);
 	
@@ -38,5 +38,7 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long>{
 	
 	 @Query("SELECT p FROM Produto p WHERE LOWER(p.titulo) LIKE LOWER(concat('%', :titulo, '%')) ORDER BY RAND() LIMIT 4")
 	 List<Produto> findRandomByTitulo(@Param("titulo") String titulo);
+	 
+	 List<Produto> findByLojaAndTituloContainingIgnoreCase(Loja loja, String titulo, Pageable page);
 
 }

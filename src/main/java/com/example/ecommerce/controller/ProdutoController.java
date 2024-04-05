@@ -50,12 +50,17 @@ public class ProdutoController {
         return ResponseEntity.ok(produtoService.listarPorCategoriaDTO(categoria, Integer.parseInt(pagina)));
     }
 	
-	@GetMapping(path = "/loja/populares/{lojaId}")
+	@GetMapping(path = "/loja/{lojaId}")
     public ResponseEntity<List<ProdutoDTO>> listarProdutosDeUmalojaDTO(@PathVariable Long lojaId, @RequestParam String pagina){
         return ResponseEntity.ok(produtoService.listarProdutosDeUmalojaDTO(lojaId, Integer.parseInt(pagina)));
     }
 	
-	@GetMapping(path = "/loja/{lojaId}")
+	@GetMapping(path = "/loja/titulo/{lojaId}")
+    public ResponseEntity<List<ProdutoDTO>> listarProdutosDeUmalojaPorTitulo(@PathVariable Long lojaId, @RequestParam String pagina, @RequestParam String titulo){
+        return ResponseEntity.ok(produtoService.listarProdutosDeUmalojaPorTitulo(lojaId, titulo, Integer.parseInt(pagina)));
+    }
+	
+	@GetMapping(path = "/loja/populares/{lojaId}")
     public ResponseEntity<List<ProdutoDTO>> listarProdutosMaisVendidosDeUmaLoja(@PathVariable Long lojaId, @RequestParam String pagina){
         return ResponseEntity.ok(produtoService.listarProdutosMaisVendidosDeUmaLoja(lojaId));
     }
