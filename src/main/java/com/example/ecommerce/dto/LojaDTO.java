@@ -13,4 +13,5 @@ public class LojaDTO {
 	    private String nome;
 	    private String logo;
 	    private Long quantidadeVendida;
+	    private Double avaliacao;
 }

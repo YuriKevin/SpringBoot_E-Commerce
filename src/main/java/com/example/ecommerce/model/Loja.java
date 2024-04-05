@@ -43,4 +43,8 @@ public class Loja {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "loja_id")
     private List<DetalhesPreConfigurados> detalhesPreConfigurados;
+    private Long quantidadeAvaliacoes;
+	private Long somaAvaliacoes;
+	@DecimalMax(value = "5.00", inclusive = true, message = "O valor deve ser no máximo 5.00")
+	private Double avaliacao;
 }
