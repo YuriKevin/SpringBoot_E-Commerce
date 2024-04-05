@@ -119,8 +119,7 @@ public class LojaService {
 	}
 	
 	@Transactional
-	public void adicionarQuantidadeVendida(Long id, int quantidade) {
-		Loja loja = encontrarPorIdOuExcecao(id);
+	public void adicionarQuantidadeVendida(Loja loja, int quantidade) {
 		loja.setQuantidadeVendida(loja.getQuantidadeVendida() + quantidade);
 		lojaRepository.save(loja);
 	}
@@ -140,9 +139,8 @@ public class LojaService {
 	}
 	
 	@Transactional
-	public void adicionarCredito(Long id, double credito) {
-		Loja loja = encontrarPorIdOuExcecao(id);
-		loja.setCredito(loja.getCredito()+credito);
+	public void adicionarCredito(Loja loja, double credito) {
+		loja.setCredito(loja.getCredito() + credito);
 		lojaRepository.save(loja);
 	}
 	
@@ -164,6 +162,7 @@ public class LojaService {
 					.nome(lojaSalva.getNome())
 					.logo(lojaSalva.getLogo())
 					.quantidadeVendida(lojaSalva.getQuantidadeVendida())
+					.avaliacao(lojaSalva.getAvaliacao())
 					.build();
 			LojasDTO.add(lojaDTO);
 		}
@@ -190,6 +189,18 @@ public class LojaService {
 	public List<LojaDTO> listarLojas(int pagina){
 		List<Loja> lojas = lojaRepository.findLojasOrderByQuantidadeVendidaDesc(PageRequest.of(pagina, 18));
 		return transformarEmDTO(lojas);
+	}
+	
+	@Transactional
+	public void avaliarLoja(Loja loja, int avaliacao) {
+		loja.setQuantidadeAvaliacoes(loja.getQuantidadeAvaliacoes()+1);
+		loja.setSomaAvaliacoes(loja.getSomaAvaliacoes()+avaliacao);
+		loja.setAvaliacao(calcularAvaliacao(loja.getSomaAvaliacoes(), loja.getQuantidadeAvaliacoes()));
+		lojaRepository.save(loja);
+	}
+	
+	public Double calcularAvaliacao(Long soma, Long quantidade) {
+		return (double) (soma/quantidade);
 	}
 	
 }

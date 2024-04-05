@@ -50,6 +50,7 @@ public class Produto {
 	private Long quantidadeVendida;
 	private Long quantidadeAvaliacoes;
 	private Long somaAvaliacoes;
+	@DecimalMax(value = "5.00", inclusive = true, message = "O valor deve ser no máximo 5.00")
 	private Double avaliacao;
 	private boolean disponivel;
 }

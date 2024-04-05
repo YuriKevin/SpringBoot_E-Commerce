@@ -55,7 +55,6 @@ public class ProdutoCompradoService {
 					.build());
 			produtosComprados.add(produtoComprado);
 			produtoService.produtoVendido(produtoSalvo, produto.getQuantidade());
-			produtoService.adicionarQuantidadeVendida(produtoComprado);
 		}
 		Double valorTotalCompra = calcularValorCompra(produtosComprados);
 		usuarioService.removerCredito(usuarioId, valorTotalCompra);
@@ -116,6 +115,7 @@ public class ProdutoCompradoService {
 		produto.setAvaliado(true);
 		produtoCompradoRepository.save(produto);
 		produtoService.avaliarProduto(produto.getProduto(), avaliacao);
+		lojaService.avaliarLoja(produto.getLoja(), avaliacao);
 	}
 	
 	@Transactional
@@ -141,5 +141,7 @@ public class ProdutoCompradoService {
 		}
 		return valorCompra;
 	}
+	
+	
 	
 }
