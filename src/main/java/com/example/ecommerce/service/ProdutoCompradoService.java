@@ -54,7 +54,7 @@ public class ProdutoCompradoService {
 					.loja(loja)
 					.build());
 			produtosComprados.add(produtoComprado);
-			produtoService.produtoVendido(produtoSalvo, produto.getQuantidade());
+			produtoService.produtoVendido(produtoSalvo, produto.getQuantidade()); 
 		}
 		Double valorTotalCompra = calcularValorCompra(produtosComprados);
 		usuarioService.removerCredito(usuarioId, valorTotalCompra);
