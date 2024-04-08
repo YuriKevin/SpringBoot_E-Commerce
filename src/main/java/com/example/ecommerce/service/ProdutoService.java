@@ -2,7 +2,6 @@ package com.example.ecommerce.service;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
-
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -10,7 +9,6 @@ import org.springframework.web.server.ResponseStatusException;
 import com.example.ecommerce.dto.CategoriaDTO;
 import com.example.ecommerce.dto.ProdutoDTO;
 import com.example.ecommerce.model.Produto;
-import com.example.ecommerce.model.ProdutoComprado;
 import com.example.ecommerce.repository.ProdutoRepository;
 import com.example.ecommerce.requests.ProdutoPostRequestBody;
 import com.example.ecommerce.requests.ProdutoPutRequestBody;
@@ -37,12 +35,16 @@ public class ProdutoService {
 		Produto produto = encontrarPorIdOuExcecao(id);
 		 ProdutoDTO produtoDTO = ProdutoDTO.builder()
 				.id(produto.getId())
+				.lojaId(produto.getLoja().getId())
 				.titulo(produto.getTitulo())
 				.valor(produto.getValor())
 				.imagens(produto.getImagens())
+				.nomeLoja(produto.getNomeLoja())
 				.detalhes(produto.getDetalhes())
+				.quantidade(produto.getQuantidade())
 				.quantidadeVendida(produto.getQuantidadeVendida())
 				.avaliacao(produto.getAvaliacao())
+				.categoria(produto.getCategoria())
 				.disponivel(produto.isDisponivel())
 				.build();
 		 return produtoDTO;
@@ -279,5 +281,6 @@ public class ProdutoService {
 		List<ProdutoDTO> produtosDTO = transformarProdutosEmDTO(produtoRepository.findLast30ByIdDesc());
 		 return produtosDTO;
 	}
+	
 	
 }
