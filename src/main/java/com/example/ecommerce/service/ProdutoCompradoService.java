@@ -35,6 +35,11 @@ public class ProdutoCompradoService {
 	}
 	
 	@Transactional
+	public ProdutoCompradoDTO encontrarPorIdDTO(Long id){
+	    return transformarEmDTO(encontrarPorIdOuExcecao(id));
+	}
+	
+	@Transactional
 	public List<ProdutoCompradoDTO> novaCompra(Long usuarioId, List<ProdutoCompradoPostRequestBody> produtos){
 		List<ProdutoComprado> produtosComprados = new ArrayList<>();
 		Usuario usuario = usuarioService.encontrarPorIdOuExcecao(usuarioId);
