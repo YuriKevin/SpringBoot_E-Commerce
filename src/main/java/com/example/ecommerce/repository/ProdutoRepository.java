@@ -41,4 +41,5 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long>{
 	 
 	 List<Produto> findByLojaAndTituloContainingIgnoreCase(Loja loja, String titulo, Pageable page);
 
+	 List<Produto> findByLoja(Loja loja);
 }
