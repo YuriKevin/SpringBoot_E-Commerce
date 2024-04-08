@@ -14,6 +14,7 @@ import com.example.ecommerce.model.Loja;
 import com.example.ecommerce.model.Produto;
 import com.example.ecommerce.model.Usuario;
 import com.example.ecommerce.repository.LojaRepository;
+import com.example.ecommerce.requests.CategoriaPostRequestBody;
 import com.example.ecommerce.requests.LojaPostRequestBody;
 import com.example.ecommerce.requests.LojaPutRequestBody;
 
@@ -24,6 +25,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class LojaService {
 	private final LojaRepository lojaRepository;
+	private final ProdutoLojaService produtoLojaService;
 	
 	@Transactional
 	public Loja encontrarPorIdOuExcecao(Long id){
@@ -95,7 +97,10 @@ public class LojaService {
 	@Transactional
 	public void atualizarDados(LojaPutRequestBody loja) {
 		Loja lojaSalva = encontrarPorIdOuExcecao(loja.getId());
-		lojaSalva.setNome(loja.getNome());
+		if (!lojaSalva.getNome().equals(loja.getNome())) {
+			lojaSalva.setNome(loja.getNome());
+			produtoLojaService.trocarNomeLojaProdutos(lojaSalva, loja.getNome());
+	    }
 		lojaSalva.setCodigoLogin(loja.getCodigoLogin());
 		lojaSalva.setLogo(loja.getLogo());
 		lojaRepository.save(lojaSalva);
@@ -125,17 +130,31 @@ public class LojaService {
 	}
 	
 	@Transactional
-	public void adicionarCategoria(Long id, Categoria categoria) {
-		Loja loja = encontrarPorIdOuExcecao(id);
+	public void adicionarCategoria(Long lojaId, CategoriaPostRequestBody categoriaPost) {
+		Loja loja = encontrarPorIdOuExcecao(lojaId);
+		Categoria categoria = new Categoria();
+		List<Produto> produtos = new ArrayList<>();
+		for(Long produtoId : categoriaPost.getIdsProdutos()) {
+			Produto produtoSalvo = produtoLojaService.encontrarProdutoPorId(produtoId);
+			produtos.add(produtoSalvo);
+		}
+		categoria.setTitulo(categoriaPost.getTitulo());
+		categoria.setProdutos(produtos);
 		loja.getCategorias().add(categoria);
 		lojaRepository.save(loja);
 	}
 	
 	@Transactional
-	public void removerCategoria(Long id, Categoria categoria) {
-		Loja loja = encontrarPorIdOuExcecao(id);
-		loja.getCategorias().remove(categoria);
-		lojaRepository.save(loja);
+	public void removerCategoria(Long lojaId, Long categoriaId) {
+		Loja loja = encontrarPorIdOuExcecao(lojaId);
+		List<Categoria> categorias = loja.getCategorias();
+	    for (Categoria categoria : categorias) {
+	        if (categoria.getId().equals(categoriaId)) {
+	            categorias.remove(categoria);
+	            break;
+	        }
+	    }
+	    lojaRepository.save(loja);
 	}
 	
 	@Transactional
@@ -178,8 +197,8 @@ public class LojaService {
 	@Transactional
 	public void atualizarSenha(Long id, String senha, String senhaAntiga) {
 		Loja loja = encontrarPorIdOuExcecao(id);
-		if(loja.getSenha() != senhaAntiga) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "A senha enterior está incorreta.");
+		if(!loja.getSenha().equals(senhaAntiga)) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "A senha anterior está incorreta.");
 		}
 		loja.setSenha(senha);
 		lojaRepository.save(loja);
