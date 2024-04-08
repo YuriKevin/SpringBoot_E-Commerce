@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +22,7 @@ import com.example.ecommerce.dto.LojaDTO;
 import com.example.ecommerce.model.Categoria;
 import com.example.ecommerce.model.DetalhesPreConfigurados;
 import com.example.ecommerce.model.Loja;
+import com.example.ecommerce.requests.CategoriaPostRequestBody;
 import com.example.ecommerce.requests.LojaPostRequestBody;
 import com.example.ecommerce.requests.LojaPutRequestBody;
 import com.example.ecommerce.service.LojaService;
@@ -71,15 +73,15 @@ public class LojaController {
     	return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 	
-	@PutMapping(path = "/adicionarCategoria")
-    public ResponseEntity<Void> adicionarCategoria(@RequestParam Long id, @RequestBody @Valid Categoria categoria){
+	@PutMapping(path = "/adicionarCategoria/{id}")
+    public ResponseEntity<Void> adicionarCategoria(@PathVariable Long id, @RequestBody @Valid CategoriaPostRequestBody categoria){
 		lojaService.adicionarCategoria(id, categoria);
     	return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 	
-	@PutMapping(path = "/removerCategoria")
-    public ResponseEntity<Void> removerCategoria(@RequestParam Long id, @RequestBody @Valid Categoria categoria){
-		lojaService.removerCategoria(id, categoria);
+	@DeleteMapping(path = "/removerCategoria/{LojaId}/{categoriaId}")
+    public ResponseEntity<Void> removerCategoria(@PathVariable Long LojaId, @PathVariable Long categoriaId){
+		lojaService.removerCategoria(LojaId, categoriaId);
     	return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 	
