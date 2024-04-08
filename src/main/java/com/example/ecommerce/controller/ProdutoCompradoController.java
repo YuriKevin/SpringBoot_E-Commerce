@@ -37,6 +37,11 @@ public class ProdutoCompradoController {
         return ResponseEntity.ok(produtoCompradoService.listarProdutosCompradosPorUmUsuario(usuarioId, Integer.parseInt(pagina)));
     }
 	
+	@GetMapping(path = "/produto/{id}")
+    public ResponseEntity<ProdutoCompradoDTO> encontrarProdutoComprado(@PathVariable Long id){
+        return ResponseEntity.ok(produtoCompradoService.encontrarPorIdDTO(id));
+    }
+	
 	@PostMapping(path = "/{id}")
     public ResponseEntity<List<ProdutoCompradoDTO>> novaCompra(@PathVariable Long id, @RequestBody @Valid List<ProdutoCompradoPostRequestBody> produtos){
         return new ResponseEntity<>(produtoCompradoService.novaCompra(id, produtos), HttpStatus.CREATED);
