@@ -1,10 +1,9 @@
 package com.example.ecommerce.model;
 
 import java.util.List;
-
+import java.util.ArrayList;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.NotNull;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
