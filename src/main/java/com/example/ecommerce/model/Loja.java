@@ -39,9 +39,6 @@ public class Loja {
     private String logo;
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "loja_id")
-    private List<Categoria> categorias;
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "loja_id")
     private List<DetalhesPreConfigurados> detalhesPreConfigurados;
     private Long quantidadeAvaliacoes;
 	private Long somaAvaliacoes;
