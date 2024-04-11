@@ -28,13 +28,13 @@ public class ProdutoCompradoController {
 	private final ProdutoCompradoService produtoCompradoService;
 	
 	@GetMapping(path = "/loja/{lojaId}")
-    public ResponseEntity<List<ProdutoCompradoDTO>> listarProdutosVendidosPorUmaLoja(@PathVariable Long lojaId, @RequestParam String pagina){
-        return ResponseEntity.ok(produtoCompradoService.listarProdutosVendidosPorUmaLoja(lojaId, Integer.parseInt(pagina)));
+    public ResponseEntity<List<ProdutoCompradoDTO>> listarProdutosVendidosPorUmaLoja(@PathVariable Long lojaId, @RequestParam int pagina){
+        return ResponseEntity.ok(produtoCompradoService.listarProdutosVendidosPorUmaLoja(lojaId, pagina));
     }
 	
 	@GetMapping(path = "/usuario/{usuarioId}")
-    public ResponseEntity<List<ProdutoCompradoDTO>> listarProdutosCompradosPorUmUsuario(@PathVariable Long usuarioId, @RequestParam String pagina){
-        return ResponseEntity.ok(produtoCompradoService.listarProdutosCompradosPorUmUsuario(usuarioId, Integer.parseInt(pagina)));
+    public ResponseEntity<List<ProdutoCompradoDTO>> listarProdutosCompradosPorUmUsuario(@PathVariable Long usuarioId, @RequestParam int pagina){
+        return ResponseEntity.ok(produtoCompradoService.listarProdutosCompradosPorUmUsuario(usuarioId, pagina));
     }
 	
 	@GetMapping(path = "/produto/{id}")

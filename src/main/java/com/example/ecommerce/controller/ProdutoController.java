@@ -41,33 +41,28 @@ public class ProdutoController {
     }
 	
 	@GetMapping(path = "/titulo/{titulo}")
-    public ResponseEntity<List<ProdutoDTO>> listarPorTituloDTO(@PathVariable String titulo, @RequestParam String pagina){
-        return ResponseEntity.ok(produtoService.listarPorTituloDTO(titulo, Integer.parseInt(pagina)));
+    public ResponseEntity<List<ProdutoDTO>> listarPorTituloDTO(@PathVariable String titulo, int pagina){
+        return ResponseEntity.ok(produtoService.listarPorTituloDTO(titulo, pagina));
     }
 	
 	@GetMapping(path = "/categoria/{categoria}")
-    public ResponseEntity<List<ProdutoDTO>> listarPorCategoriaDTO(@PathVariable String categoria, @RequestParam String pagina){
-        return ResponseEntity.ok(produtoService.listarPorCategoriaDTO(categoria, Integer.parseInt(pagina)));
+    public ResponseEntity<List<ProdutoDTO>> listarPorCategoriaDTO(@PathVariable String categoria, @RequestParam int pagina){
+        return ResponseEntity.ok(produtoService.listarPorCategoriaDTO(categoria, pagina));
     }
 	
 	@GetMapping(path = "/loja/{lojaId}")
-    public ResponseEntity<List<ProdutoDTO>> listarProdutosDeUmalojaDTO(@PathVariable Long lojaId, @RequestParam String pagina){
-        return ResponseEntity.ok(produtoService.listarProdutosDeUmalojaDTO(lojaId, Integer.parseInt(pagina)));
+    public ResponseEntity<List<ProdutoDTO>> listarProdutosDeUmalojaDTO(@PathVariable Long lojaId, @RequestParam int pagina){
+        return ResponseEntity.ok(produtoService.listarProdutosDeUmalojaDTO(lojaId, pagina));
     }
 	
 	@GetMapping(path = "/loja/titulo/{lojaId}")
-    public ResponseEntity<List<ProdutoDTO>> listarProdutosDeUmalojaPorTitulo(@PathVariable Long lojaId, @RequestParam String pagina, @RequestParam String titulo){
-        return ResponseEntity.ok(produtoService.listarProdutosDeUmalojaPorTitulo(lojaId, titulo, Integer.parseInt(pagina)));
+    public ResponseEntity<List<ProdutoDTO>> listarProdutosDeUmalojaPorTitulo(@PathVariable Long lojaId, @RequestParam int pagina, @RequestParam String titulo){
+        return ResponseEntity.ok(produtoService.listarProdutosDeUmalojaPorTitulo(lojaId, titulo, pagina));
     }
 	
 	@GetMapping(path = "/loja/populares/{lojaId}")
-    public ResponseEntity<List<ProdutoDTO>> listarProdutosMaisVendidosDeUmaLoja(@PathVariable Long lojaId, @RequestParam String pagina){
+    public ResponseEntity<List<ProdutoDTO>> listarProdutosMaisVendidosDeUmaLoja(@PathVariable Long lojaId){
         return ResponseEntity.ok(produtoService.listarProdutosMaisVendidosDeUmaLoja(lojaId));
-    }
-	
-	@GetMapping(path = "/categorias/{id}")
-    public ResponseEntity<List<CategoriaDTO>> listarProdutosCategorizadosDeUmaLoja(@PathVariable Long id){
-        return ResponseEntity.ok(produtoService.listarProdutosCategorizadosDeUmaLoja(id));
     }
 	
 	@GetMapping(path = "/top")
