@@ -34,6 +34,19 @@ public class LojaService {
 	}
 	
 	@Transactional
+	public LojaDTO encontrarPorIdDTO(Long id){
+		Loja loja = encontrarPorIdOuExcecao(id);
+		return 	 LojaDTO.builder()
+				.id(loja.getId())
+				.nome(loja.getNome())
+				.logo(loja.getLogo())
+				.quantidadeVendida(loja.getQuantidadeVendida())
+				.avaliacao(loja.getAvaliacao())
+				.build();
+        	
+	}
+	
+	@Transactional
 	public Loja encontrarPorCodigoLogin(Long id){
 		return lojaRepository.findByCodigoLogin(id);
 	}
@@ -129,33 +142,7 @@ public class LojaService {
 		lojaRepository.save(loja); 
 	}
 	
-	@Transactional
-	public void adicionarCategoria(Long lojaId, CategoriaPostRequestBody categoriaPost) {
-		Loja loja = encontrarPorIdOuExcecao(lojaId);
-		Categoria categoria = new Categoria();
-		List<Produto> produtos = new ArrayList<>();
-		for(Long produtoId : categoriaPost.getIdsProdutos()) {
-			Produto produtoSalvo = produtoLojaService.encontrarProdutoPorId(produtoId);
-			produtos.add(produtoSalvo);
-		}
-		categoria.setTitulo(categoriaPost.getTitulo());
-		categoria.setProdutos(produtos);
-		loja.getCategorias().add(categoria);
-		lojaRepository.save(loja);
-	}
-	
-	@Transactional
-	public void removerCategoria(Long lojaId, Long categoriaId) {
-		Loja loja = encontrarPorIdOuExcecao(lojaId);
-		List<Categoria> categorias = loja.getCategorias();
-	    for (Categoria categoria : categorias) {
-	        if (categoria.getId().equals(categoriaId)) {
-	            categorias.remove(categoria);
-	            break;
-	        }
-	    }
-	    lojaRepository.save(loja);
-	}
+
 	
 	@Transactional
 	public void adicionarCredito(Loja loja, double credito) {

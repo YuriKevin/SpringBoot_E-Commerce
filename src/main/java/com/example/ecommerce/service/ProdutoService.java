@@ -232,26 +232,7 @@ public class ProdutoService {
 		}
 	}
 	
-	@Transactional
-	public List<CategoriaDTO> listarProdutosCategorizadosDeUmaLoja(Long id) {
-		Loja loja = lojaService.encontrarPorIdOuExcecao(id);
-		List<CategoriaDTO> categorias = transformarCategoriasEmDTO(loja.getCategorias());
-		return categorias;
-	}
 	
-	public List<CategoriaDTO> transformarCategoriasEmDTO(List<Categoria> categorias){
-		List<CategoriaDTO> categoriasDTO = new ArrayList<>();
-		for(Categoria categoriaSalva : categorias) {
-			List<ProdutoDTO> produtosDTO = transformarProdutosEmDTO(categoriaSalva.getProdutos());
-			CategoriaDTO categoriaDTO = CategoriaDTO.builder()
-					.id(categoriaSalva.getId())
-					.titulo(categoriaSalva.getTitulo())
-					.produtos(produtosDTO)
-					.build();
-					categoriasDTO.add(categoriaDTO);
-		}
-		return categoriasDTO;
-	}
 	
 	@Transactional
 	public List<ProdutoDTO> produtosEmDestaque(){
