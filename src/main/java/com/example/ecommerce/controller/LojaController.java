@@ -37,13 +37,13 @@ public class LojaController {
 	private final LojaService lojaService;
 	
 	@GetMapping(path = "/{id}")
-    public ResponseEntity<Loja> encontrarPorId(@PathVariable Long id){
-        return ResponseEntity.ok(lojaService.encontrarPorIdOuExcecao(id));
+    public ResponseEntity<LojaDTO> encontrarPorIdDTO(@PathVariable Long id){
+        return ResponseEntity.ok(lojaService.encontrarPorIdDTO(id));
     }
 	
 	@GetMapping(path = "/nome/{nome}")
-    public ResponseEntity<List<LojaDTO>> encontrarPorNome(@PathVariable String nome, @RequestParam String pagina){
-        return ResponseEntity.ok(lojaService.encontrarPorNome(nome, Integer.parseInt(pagina)));
+    public ResponseEntity<List<LojaDTO>> encontrarPorNome(@PathVariable String nome, @RequestParam int pagina){
+        return ResponseEntity.ok(lojaService.encontrarPorNome(nome, pagina));
     }
 	
 	
@@ -70,18 +70,6 @@ public class LojaController {
 	@PutMapping
     public ResponseEntity<Void> atualizarDados(@RequestBody @Valid LojaPutRequestBody loja){
 		lojaService.atualizarDados(loja);
-    	return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
-	
-	@PutMapping(path = "/adicionarCategoria/{id}")
-    public ResponseEntity<Void> adicionarCategoria(@PathVariable Long id, @RequestBody @Valid CategoriaPostRequestBody categoria){
-		lojaService.adicionarCategoria(id, categoria);
-    	return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
-	
-	@DeleteMapping(path = "/removerCategoria/{LojaId}/{categoriaId}")
-    public ResponseEntity<Void> removerCategoria(@PathVariable Long LojaId, @PathVariable Long categoriaId){
-		lojaService.removerCategoria(LojaId, categoriaId);
     	return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 	
