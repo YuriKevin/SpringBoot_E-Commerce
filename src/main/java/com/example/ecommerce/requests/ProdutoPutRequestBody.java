@@ -1,8 +1,6 @@
 package com.example.ecommerce.requests;
 import java.util.List;
-
 import com.example.ecommerce.model.DetalhesProduto;
-
 import lombok.Data;
 
 @Data

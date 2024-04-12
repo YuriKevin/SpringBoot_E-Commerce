@@ -6,14 +6,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-import com.example.ecommerce.dto.CategoriaDTO;
 import com.example.ecommerce.dto.ProdutoDTO;
 import com.example.ecommerce.model.Produto;
 import com.example.ecommerce.repository.ProdutoRepository;
 import com.example.ecommerce.requests.ProdutoPostRequestBody;
 import com.example.ecommerce.requests.ProdutoPutRequestBody;
 import jakarta.transaction.Transactional;
-import com.example.ecommerce.model.Categoria;
 import com.example.ecommerce.model.Loja;
 import lombok.RequiredArgsConstructor;
 

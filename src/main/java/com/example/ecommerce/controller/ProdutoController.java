@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import com.example.ecommerce.dto.CategoriaDTO;
 import com.example.ecommerce.dto.ProdutoDTO;
 import com.example.ecommerce.model.Produto;
 import com.example.ecommerce.requests.ProdutoPostRequestBody;

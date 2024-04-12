@@ -1,5 +1,4 @@
 package com.example.ecommerce.dto;
-
 import java.util.List;
 import com.example.ecommerce.model.DetalhesProduto;
 import lombok.AllArgsConstructor;

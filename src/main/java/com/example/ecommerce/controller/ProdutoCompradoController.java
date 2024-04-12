@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.ecommerce.dto.ProdutoCompradoDTO;
 import com.example.ecommerce.requests.ProdutoCompradoPostRequestBody;
 import com.example.ecommerce.service.ProdutoCompradoService;
-
 import lombok.RequiredArgsConstructor;
 
 @Component

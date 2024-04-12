@@ -1,9 +1,7 @@
 package com.example.ecommerce.service;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.stereotype.Service;
-
 import com.example.ecommerce.dto.CategoriaDTO;
 import com.example.ecommerce.dto.ProdutoDTO;
 import com.example.ecommerce.model.Categoria;
@@ -11,7 +9,6 @@ import com.example.ecommerce.model.Loja;
 import com.example.ecommerce.model.Produto;
 import com.example.ecommerce.repository.CategoriaRepository;
 import com.example.ecommerce.requests.CategoriaPostRequestBody;
-
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 

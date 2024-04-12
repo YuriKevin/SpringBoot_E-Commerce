@@ -6,7 +6,6 @@ import com.example.ecommerce.model.Usuario;
 import com.example.ecommerce.repository.UsuarioRepository;
 import com.example.ecommerce.requests.UsuarioPostRequestBody;
 import com.example.ecommerce.requests.UsuarioPutRequestBody;
-
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 

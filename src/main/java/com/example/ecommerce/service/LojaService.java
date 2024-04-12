@@ -1,23 +1,16 @@
 package com.example.ecommerce.service;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import com.example.ecommerce.dto.LojaDTO;
-import com.example.ecommerce.model.Categoria;
 import com.example.ecommerce.model.DetalhesPreConfigurados;
 import com.example.ecommerce.model.Loja;
-import com.example.ecommerce.model.Produto;
-import com.example.ecommerce.model.Usuario;
 import com.example.ecommerce.repository.LojaRepository;
-import com.example.ecommerce.requests.CategoriaPostRequestBody;
 import com.example.ecommerce.requests.LojaPostRequestBody;
 import com.example.ecommerce.requests.LojaPutRequestBody;
-
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 

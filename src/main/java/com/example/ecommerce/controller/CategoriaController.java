@@ -1,8 +1,6 @@
 package com.example.ecommerce.controller;
 import java.util.List;
-
 import javax.validation.Valid;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -14,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.example.ecommerce.dto.CategoriaDTO;
 import com.example.ecommerce.requests.CategoriaPostRequestBody;
 import com.example.ecommerce.service.CategoriaService;
