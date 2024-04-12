@@ -233,14 +233,14 @@ public class ProdutoService {
 	
 	
 	@Transactional
-	public List<ProdutoDTO> produtosEmDestaque(){
+	public List<ProdutoDTO> produtosEmDestaque(List<Long> ids){
+		if(ids.size() > 3) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Apenas 3 itens por pesquisa.");
+		}
 		List<ProdutoDTO> produtosDTO = new ArrayList<>();
-		 ProdutoDTO produto1 = transformarUmProdutoEmDTO(encontrarPorIdOuExcecao(1L));
-		 produtosDTO.add(produto1);
-		 ProdutoDTO produto3 = transformarUmProdutoEmDTO(encontrarPorIdOuExcecao(3L));
-		 produtosDTO.add(produto3);
-		 ProdutoDTO produto4 = transformarUmProdutoEmDTO(encontrarPorIdOuExcecao(4L));
-		 produtosDTO.add(produto4);
+		for(Long id : ids) {
+			produtosDTO.add(encontrarPorIdDTO(id));
+		}
 		 return produtosDTO;
 	}
 	

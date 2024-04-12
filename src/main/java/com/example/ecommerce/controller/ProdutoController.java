@@ -75,8 +75,8 @@ public class ProdutoController {
     }
 	
 	@GetMapping(path = "/destaques")
-    public ResponseEntity<List<ProdutoDTO>> produtosEmDestaque(){
-        return ResponseEntity.ok(produtoService.produtosEmDestaque());
+    public ResponseEntity<List<ProdutoDTO>> produtosEmDestaque(@RequestParam List<Long> ids){
+        return ResponseEntity.ok(produtoService.produtosEmDestaque(ids));
     }
 	
 	@GetMapping(path = "/historico")
