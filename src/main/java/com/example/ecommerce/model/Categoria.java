@@ -1,6 +1,6 @@
 package com.example.ecommerce.model;
-
 import java.util.List;
+import javax.validation.constraints.NotNull;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,6 +23,7 @@ public class Categoria {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@NotNull
 	private String titulo;
 	@ManyToMany
     @JoinTable(
@@ -30,7 +31,9 @@ public class Categoria {
         joinColumns = @JoinColumn(name = "categoria_id"),
         inverseJoinColumns = @JoinColumn(name = "produto_id")
     )
+	@NotNull
     private List<Produto> produtos;
 	@ManyToOne
+	@NotNull
     private Loja loja;
 }

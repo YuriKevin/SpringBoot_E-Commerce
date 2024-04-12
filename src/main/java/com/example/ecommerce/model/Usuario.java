@@ -1,6 +1,6 @@
 package com.example.ecommerce.model;
-import javax.validation.constraints.DecimalMax;
-
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotNull;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,10 +20,13 @@ public class Usuario {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+	@NotNull
 	private String nome;
 	@Column(unique = true)
+	@NotNull
 	private String email;
+	@NotNull
 	private String senha;
-	@DecimalMax(value = "9999999999.99", inclusive = true, message = "O valor deve ter no máximo duas casas decimais")
+	@Digits(integer=10, fraction=2)
 	private Double credito;
 }

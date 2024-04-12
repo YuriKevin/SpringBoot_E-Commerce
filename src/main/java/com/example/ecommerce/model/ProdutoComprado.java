@@ -1,4 +1,6 @@
 package com.example.ecommerce.model;
+import javax.validation.constraints.NotNull;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -20,13 +22,18 @@ public class ProdutoComprado {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 	@ManyToOne
+	@NotNull
 	private Produto produto;
+	@NotNull
 	private Double valor;
+	@NotNull
 	private int quantidade;
 	private boolean avaliado;
 	private boolean cancelado;
 	@ManyToOne(fetch = FetchType.LAZY)
+	@NotNull
 	private Loja loja;
 	@ManyToOne(fetch = FetchType.LAZY)
+	@NotNull
 	private Usuario usuario;
 }

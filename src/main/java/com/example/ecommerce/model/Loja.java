@@ -1,8 +1,7 @@
 package com.example.ecommerce.model;
 import java.util.List;
-
 import javax.validation.constraints.DecimalMax;
-
+import javax.validation.constraints.NotNull;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -28,14 +27,18 @@ public class Loja {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(unique = true)
+    @NotNull
     private Long codigoLogin;
+    @NotNull
     private String nome;
+    @NotNull
     private String senha;
     @DecimalMax(value = "9999999999.99", inclusive = true, message = "O valor deve ter no máximo duas casas decimais")
     private Double credito;
     private Long quantidadeVendida;
     @Lob
     @Column(columnDefinition = "LONGTEXT")
+    @NotNull
     private String logo;
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "loja_id")

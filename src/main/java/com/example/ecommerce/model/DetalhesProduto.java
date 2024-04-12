@@ -1,4 +1,5 @@
 package com.example.ecommerce.model;
+import javax.validation.constraints.NotNull;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,6 +18,8 @@ public class DetalhesProduto {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+	@NotNull
 	private String titulo;
+	@NotNull
 	private String descricao;
 }
