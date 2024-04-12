@@ -1,17 +1,13 @@
 package com.example.ecommerce.service;
 import java.util.List;
-
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-
 import java.util.ArrayList;
 import com.example.ecommerce.repository.ProdutoCompradoRepository;
 import com.example.ecommerce.requests.ProdutoCompradoPostRequestBody;
-
 import jakarta.transaction.Transactional;
-
 import com.example.ecommerce.dto.ProdutoCompradoDTO;
 import com.example.ecommerce.model.ProdutoComprado;
 import com.example.ecommerce.model.Usuario;
@@ -45,6 +41,9 @@ public class ProdutoCompradoService {
 		Usuario usuario = usuarioService.encontrarPorIdOuExcecao(usuarioId);
 		for(ProdutoCompradoPostRequestBody produto : produtos) {
 			Produto produtoSalvo = produtoService.encontrarPorIdOuExcecao(produto.getProdutoId());
+			if(!produtoSalvo.isDisponivel()) {
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Indisponível: "+produtoSalvo.getTitulo());
+			}
 			if(produtoSalvo.getQuantidade()<produto.getQuantidade()) {
 				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Produto com estoque insuficiente. Quantidade disponível: "+produtoSalvo.getQuantidade());
 			}
