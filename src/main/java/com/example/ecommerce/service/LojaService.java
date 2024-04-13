@@ -82,6 +82,9 @@ public class LojaService {
 				.logo(loja.getLogo())
 				.quantidadeVendida(0L)
 				.credito(0D)
+				.quantidadeAvaliacoes(0L)
+				.somaAvaliacoes(0L)
+				.avaliacao(0D)
 				.build());
 	}
 	

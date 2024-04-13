@@ -166,7 +166,8 @@ public class ProdutoService {
 				.quantidadeVendida(0L)
 				.quantidadeAvaliacoes(0L)
 				.somaAvaliacoes(0L)
-				.avaliacao(null)
+				.avaliacao(0D)
+				.disponivel(produto.isDisponivel())
 				.build());
 		
 		return transformarUmProdutoEmDTO(novoProduto);
@@ -181,8 +182,10 @@ public class ProdutoService {
 		if(produto.getImagens().size()>6) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "é permitido no máximo 6 imagens por produto.");
 		}
+		produtoSalvo.setQuantidade(produto.getQuantidade());
 		produtoSalvo.setImagens(produto.getImagens());
 		produtoSalvo.setDetalhes(produto.getDetalhes());
+		produtoSalvo.setDisponivel(produto.isDisponivel());
 		produtoRepository.save(produtoSalvo);
 	}
 	
