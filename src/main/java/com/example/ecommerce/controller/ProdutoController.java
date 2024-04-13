@@ -40,13 +40,18 @@ public class ProdutoController {
     }
 	
 	@GetMapping(path = "/titulo/{titulo}")
-    public ResponseEntity<List<ProdutoDTO>> listarPorTituloDTO(@PathVariable String titulo, int pagina){
+    public ResponseEntity<List<ProdutoDTO>> listarPorTituloDTO(@PathVariable String titulo, @RequestParam int pagina){
         return ResponseEntity.ok(produtoService.listarPorTituloDTO(titulo, pagina));
     }
 	
 	@GetMapping(path = "/categoria/{categoria}")
     public ResponseEntity<List<ProdutoDTO>> listarPorCategoriaDTO(@PathVariable String categoria, @RequestParam int pagina){
         return ResponseEntity.ok(produtoService.listarPorCategoriaDTO(categoria, pagina));
+    }
+	
+	@GetMapping(path = "/amazing")
+    public ResponseEntity<List<ProdutoDTO>> produtosAmazing(){
+        return ResponseEntity.ok(produtoService.listarProdutosDeUmalojaDTO(1L, 0));
     }
 	
 	@GetMapping(path = "/loja/{lojaId}")
