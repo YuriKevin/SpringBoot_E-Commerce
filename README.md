@@ -5,9 +5,9 @@ Back-end com o framework Spring Boot de uma plataforma de E-Commerce baseada na 
 [Assista ao vídeo](https://www.youtube.com/watch?v=-Amu7M3hCvQ)
 
 ## Outros vídeos relacionados:
-[Algoritmo que indica produtos com base no interesse do usuário](https://www.youtube.com/watch?v=GqyikTsfetY)
-[Algoritmo de responsividade](https://www.youtube.com/watch?v=VdYWJJz7kg4)
-[Timelapse construção do HTML & CSS](https://www.youtube.com/watch?v=Tjv2n7l7SxY)
+[Algoritmo que indica produtos com base no interesse do usuário](https://www.youtube.com/watch?v=GqyikTsfetY)  <br>
+[Algoritmo de responsividade](https://www.youtube.com/watch?v=VdYWJJz7kg4)  <br>
+[Timelapse construção do HTML & CSS](https://www.youtube.com/watch?v=Tjv2n7l7SxY)  <br>
 
 ## O que este back-end possibilita?
 - É uma API RESTful;
