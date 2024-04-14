@@ -5,6 +5,7 @@ Back-end com o framework Spring Boot de uma plataforma de E-Commerce baseada na 
 [Assista ao vídeo](https://www.youtube.com/watch?v=-Amu7M3hCvQ)
 
 ## Outros vídeos relacionados:
+[Construção do projeto em 1M](https://www.youtube.com/watch?v=npNiOJuKJeI)  <br>
 [Algoritmo que indica produtos com base no interesse do usuário](https://www.youtube.com/watch?v=GqyikTsfetY)  <br>
 [Algoritmo de responsividade](https://www.youtube.com/watch?v=VdYWJJz7kg4)  <br>
 [Timelapse construção do HTML & CSS](https://www.youtube.com/watch?v=Tjv2n7l7SxY)  <br>
